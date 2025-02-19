@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { TodoProvider } from './contexts'
 import TodoForm from './components/TodoForm'
+import TodoItem from './components/TodoItem'
 
 function App() {
   const [todos, setTodos] = useState([])
@@ -23,10 +24,11 @@ function App() {
   }
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem('todos'))
-    if(todos && todos.length > 0){
+    if (todos && todos.length > 0) {
       setTodos(todos)
     }
-  })
+  }, []) // Add an empty dependency array []
+  
   useEffect(() => {
     localStorage.setItem('todos',JSON.stringify(todos))
   },[todos])
@@ -41,7 +43,14 @@ function App() {
               <TodoForm />
             </div>
             <div className="flex flex-wrap gap-y-3">
-              {/*Loop and Add TodoItem here */}
+             {
+              todos.map(todo => (
+                <div key={todo.id} className='w-full'>
+                  <TodoItem todo={todo} />
+                  
+                </div>
+              ))
+             }
             </div>
         </div>
       </div>
