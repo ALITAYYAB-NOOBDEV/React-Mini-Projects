@@ -3,7 +3,7 @@ import { act } from "react";
 
 const initialState = {
     todos: [{
-        id: 1, text: 'Learn React'
+        id: nanoid(), text: 'Learn React'
     }]
 }
 
